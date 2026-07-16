@@ -117,24 +117,3 @@ async def ticket(interaction: discord.Interaction):
         @discord.ui.button(
             label="Create Ticket",
             style=discord.ButtonStyle.blurple,
-            emoji="🎫"
-        )
-        async def create_ticket(
-            self,
-            button: discord.ui.Button,
-            interaction2: discord.Interaction
-        ):
-            await interaction2.response.send_message(
-                "✅ Ticket system coming in Phase 2!",
-                ephemeral=True
-            )
-
-    await interaction.response.send_message(
-        embed=embed,
-        view=TicketView()
-    )
-
-# -----------------------------
-# Start Bot
-# -----------------------------
-bot.run(TOKEN)
