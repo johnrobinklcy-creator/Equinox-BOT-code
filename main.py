@@ -121,7 +121,7 @@ async def ticket(interaction: discord.Interaction):
             style=discord.ButtonStyle.blurple,
             emoji="🎫"
         )
-async def create_ticket(
+    async def create_ticket(
     self,
     interaction: discord.Interaction,
     button: discord.ui.Button
