@@ -121,14 +121,24 @@ async def ticket(interaction: discord.Interaction):
             style=discord.ButtonStyle.blurple,
             emoji="🎫"
         )
-        async def create_ticket(
-            self,
-            interaction: discord.Interaction,
-            button: discord.ui.Button
-        ):
-            await interaction.response.send_message(
-                "✅ Ticket system coming in Phase 2!",
-                ephemeral=True
+async def create_ticket(
+    self,
+    interaction: discord.Interaction,
+    button: discord.ui.Button
+):
+    guild = interaction.guild
+
+    category = get(
+        guild.categories,
+        name=TICKET_CATEGORY_NAME
+    )
+
+    if category is None:
+        await interaction.response.send_message(
+            "❌ Ticket category not found.",
+            ephemeral=True
+        )
+        return
             )
 
     await interaction.response.send_message(
