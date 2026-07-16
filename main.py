@@ -139,7 +139,7 @@ async def create_ticket(
             ephemeral=True
         )
         return
-            )
+            
 
     await interaction.response.send_message(
         embed=embed,
