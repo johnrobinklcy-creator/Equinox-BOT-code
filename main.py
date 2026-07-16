@@ -123,7 +123,8 @@ async def ticket(interaction: discord.Interaction):
         )
     async def create_ticket(
     self,
-    interaction: discord.Interaction,
+    interaction: 
+ discord.Interaction,
     button: discord.ui.Button
 ):
     guild = interaction.guild
