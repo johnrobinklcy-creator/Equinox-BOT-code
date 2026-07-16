@@ -13,6 +13,7 @@ with open("config.json", "r") as f:
 
 TOKEN = config["token"]
 
+TICKET_CATEGORY_NAME = "🎫 Tickets"
 # -----------------------------
 # Bot Setup
 # -----------------------------
