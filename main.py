@@ -152,21 +152,7 @@ class TicketView(discord.ui.View):
             ephemeral=True
         )
 
-    @bot.tree.command(
-        name="ticket",
-        description="Create a support ticket."
-    )
-    async def ticket(interaction: discord.Interaction):
-        embed = discord.Embed(
-            title="🎫 Support",
-            description="Need help? Click the button below to create a support ticket.",
-            color=0x5865F2
-        )
 
-        await interaction.response.send_message(
-            embed=embed,
-            view=TicketView()
-        )
 # Start Bot
 # -----------------------------
 bot.run(TOKEN)
