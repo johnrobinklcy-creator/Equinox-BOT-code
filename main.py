@@ -115,39 +115,58 @@ async def ticket(interaction: discord.Interaction):
         color=0x5865F2
     )
 
-    class TicketView(discord.ui.View):
-        @discord.ui.button(
-            label="Create Ticket",
-            style=discord.ButtonStyle.blurple,
-            emoji="🎫"
-        )
-       async def create_ticket(
-    self,
-    interaction:
-discord.Interaction,
-    button: discord.ui.Button
-):
-    guild = interaction.guild
-
-    category = get(
-        guild.categories,
-        name=TICKET_CATEGORY_NAME
+class TicketView(discord.ui.View):
+    @discord.ui.button(
+        label="Create Ticket",
+        style=discord.ButtonStyle.blurple,
+        emoji="🎫"
     )
+    async def create_ticket(
+        self,
+        interaction: discord.Interaction,
+        button: discord.ui.Button
+    ):
+        category = get(
+            interaction.guild.categories,
+            name=TICKET_CATEGORY_NAME
+        )
 
-    if category is None:
+        if category is None:
+            await interaction.response.send_message(
+                "❌ Ticket category not found.",
+                ephemeral=True
+            )
+            return
+
+        channel = await interaction.guild.create_text_channel(
+            name=f"ticket-{interaction.user.name}",
+            category=category
+        )
+
+        await channel.send(
+            f"{interaction.user.mention}, welcome! Staff will assist you shortly."
+        )
+
         await interaction.response.send_message(
-            "❌ Ticket category not found.",
+            f"✅ Ticket created: {channel.mention}",
             ephemeral=True
         )
-        return
-            
 
-    await interaction.response.send_message(
-        embed=embed,
-        view=TicketView()
+    @bot.tree.command(
+        name="ticket",
+        description="Create a support ticket."
     )
+    async def ticket(interaction: discord.Interaction):
+        embed = discord.Embed(
+            title="🎫 Support",
+            description="Need help? Click the button below to create a support ticket.",
+            color=0x5865F2
+        )
 
-# -----------------------------
+        await interaction.response.send_message(
+            embed=embed,
+            view=TicketView()
+        )
 # Start Bot
 # -----------------------------
 bot.run(TOKEN)
