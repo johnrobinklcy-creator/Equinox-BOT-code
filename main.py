@@ -115,6 +115,11 @@ async def ticket(interaction: discord.Interaction):
         color=0x5865F2
     )
 
+    await interaction.response.send_message(
+        embed=embed,
+        view=TicketView()
+    )
+
 class TicketView(discord.ui.View):
     @discord.ui.button(
         label="Create Ticket",
