@@ -121,6 +121,8 @@ async def ticket(interaction: discord.Interaction):
     )
 
 class TicketView(discord.ui.View):
+    def __init__(self):
+        super().__init__(timeout=None)
     @discord.ui.button(
         label="Create Ticket",
         style=discord.ButtonStyle.blurple,
