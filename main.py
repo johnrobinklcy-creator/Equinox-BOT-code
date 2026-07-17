@@ -144,11 +144,34 @@ class TicketView(discord.ui.View):
                 ephemeral=True
             )
             return
+overwrites = {
+    interaction.guild.default_role: discord.PermissionOverwrite(view_channel=False),
+    interaction.user: discord.PermissionOverwrite(
+        view_channel=True,
+        send_messages=True,
+        read_message_history=True
+    ),
+    interaction.guild.me: discord.PermissionOverwrite(view_channel=True)
+}
 
-        channel = await interaction.guild.create_text_channel(
-            name=f"ticket-{interaction.user.name}",
-            category=category
-        )
+staff_roles = [
+    "Moderator",
+    "🔧Trial Mod",
+    "⚖️admin",
+    "🛡️head moderator",
+    "👑owner"
+]
+
+for role_name in staff_roles:
+    role = discord.utils.get(interaction.guild.roles, name=role_name)
+    if role:
+        overwrites[role] = discord.PermissionOverwrite(view_channel=True)
+
+channel = await interaction.guild.create_text_channel(
+    name=f"ticket-{interaction.user.name}",
+    category=category,
+    overwrites=overwrites
+)
 
         await channel.send(
             f"{interaction.user.mention}, welcome! Staff will assist you shortly."
